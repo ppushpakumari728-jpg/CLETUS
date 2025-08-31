@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rock-Paper-Scissors Party 🎮</title>
+<style>
+  body { font-family:sans-serif; background:#111; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; }
+  h1 { margin-bottom:1rem; }
+  .choices { display:flex; gap:1rem; margin-bottom:1rem; }
+  button { padding:1rem 1.5rem; font-size:1.2rem; border:none; border-radius:.5rem; cursor:pointer; background:#222; color:#fff; }
+  button:hover { background:#444; }
+  #result { margin-top:1rem; font-size:1.5rem; }
+  #history { margin-top:1rem; font-size:1rem; color:#aaa; max-width:90vw; text-align:center; }
+</style>
+</head>
+<body>
+
+<h1>Rock-Paper-Scissors Game 🎮</h1>
+
+<div class="choices">
+  <button onclick="choose('Rock')">🪨 Rock</button>
+  <button onclick="choose('Paper')">📄 Paper</button>
+  <button onclick="choose('Scissors')">✂️ Scissors</button>
+</div>
+
+<div id="result">Make your choice!</div>
+<div id="history"></div>
+
+<script>
+const choices = ['Rock', 'Paper', 'Scissors'];
+let history = [];
+
+function choose(playerChoice){
+  const computerChoice = choices[Math.floor(Math.random()*choices.length)];
+  let outcome = '';
+  
+  if(playerChoice === computerChoice){
+    outcome = "It's a tie!";
+  } else if(
+    (playerChoice==='Rock' && computerChoice==='Scissors') ||
+    (playerChoice==='Paper' && computerChoice==='Rock') ||
+    (playerChoice==='Scissors' && computerChoice==='Paper')
+  ){
+    outcome = 'You Win! 🎉';
+  } else {
+    outcome = 'You Lose! 😢';
+  }
+  
+  const resultText = `You chose ${playerChoice} | Opponent chose ${computerChoice} → ${outcome}`;
+  document.getElementById('result').textContent = resultText;
+  
+  history.push(resultText);
+  document.getElementById('history').innerHTML = history.slice(-5).join('<br>');
+}
+</script>
+
+</body>
+</html>
